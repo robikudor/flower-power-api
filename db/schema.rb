@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_09_21_080819) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "flower_orders", force: :cascade do |t|
     t.integer "flower_id"
     t.integer "order_id"
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_09_21_080819) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "total_price"
-    t.boolean "completed"
+    t.boolean "completed", default: false
     t.string "delivery_address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
