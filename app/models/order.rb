@@ -2,15 +2,10 @@ class Order < ApplicationRecord
   has_many :flower_orders
   has_many :flowers, through: :flower_orders
 
-  validates :delivery_address, presence: true
   validate :has_flowers
 
   def calculate_price
-    total = 0
-    flowers.each do |flower|
-      total += flower.price
-    end
-    total
+    flowers.inject(0) { | sum, flower| sum + flower.price }
   end
 
   def complete_order
