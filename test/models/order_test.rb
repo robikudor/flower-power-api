@@ -14,7 +14,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_not order.save
   end
 
-  test "when attributes are correct" do
+  test "when attributes are correct saves the order" do
     order = Order.new(delivery_address: 'Mars')
     order.flower_ids = [Flower.first.id]
 
