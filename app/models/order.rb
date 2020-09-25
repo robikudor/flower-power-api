@@ -5,14 +5,12 @@ class Order < ApplicationRecord
   validate :has_flowers
 
   def calculate_price
-    flowers.inject(0) { | sum, flower| sum + flower.price }
+    flowers.map(&:price).inject(0, :+)
   end
 
   def complete_order
     update(completed: true)
-    flowers.each do |flower|
-      flower.update(ordered_count: flower.ordered_count + 1)
-    end
+    flowers.each(&:increment_ordered_count)
   end
 
   private

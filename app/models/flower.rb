@@ -12,4 +12,8 @@ class Flower < ApplicationRecord
 
   has_many :flower_orders
   has_many :orders, through: :flower_orders
+
+  def increment_ordered_count
+    update(ordered_count: ordered_count + 1)
+  end
 end

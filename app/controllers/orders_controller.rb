@@ -11,8 +11,7 @@ class OrdersController < ApplicationController
     new_order = Order.new()
 
     new_order.flower_ids = params[:flower_ids]
-    total_price = new_order.calculate_price
-    new_order.update(order_params.merge(total_price: total_price))
+    new_order.update(order_params.merge(total_price: new_order.calculate_price))
 
     render json: new_order
   end
@@ -24,8 +23,7 @@ class OrdersController < ApplicationController
     return render status: :not_found unless order
 
     order.flower_ids = order_params[:flower_ids]
-    total_price = order.calculate_price
-    order.update(order_params.merge(total_price: total_price))
+    order.update(order_params.merge(total_price: order.calculate_price))
 
     render json: order
   end
@@ -33,7 +31,7 @@ class OrdersController < ApplicationController
   private
 
   def order
-    @order ||= Order.find_by(params[:id])
+    @order ||= Order.find_by(id: params[:id])
   end
 
   def order_params
